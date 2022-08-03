@@ -2,7 +2,7 @@ from pathlib import Path
 import csv
 import requests
 key_api = 'BC94UTRLKLJQB8ZA'
-url = ''
+url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=SGD&apikey={base_url}'
 
 responses = requests.get(url)
 
