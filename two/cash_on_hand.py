@@ -10,21 +10,20 @@ import json
 data=responses.json()
 print(json.dumps(data,indent=4))
 
-closed_data=data["Real Time Currency Exchange Rate"]
-exchange_rate=(float(closed_data['5. exchange rate']))
-fp=Path.cwd()/"Two folder"
-file_path=Path.cwd()/"Two folder"/"cash-on-hand_usd.csv"
+data_1=data["Realtime Currency Exchange Rate"]
+exchange_rate=(float(data_1['5. Exchange Rate']))
+file_path=Path.cwd()/"csv reports"/"cash-on-hand-usd.csv"
 with file_path.open(mode = "r",encoding = "UTF-8", newline="") as file:
     Readers = csv.reader(file)
     next(Readers)
-    empty_list=[]
+    list=[]
     flag_list=[]
     for line in Readers:
-        empty_list.append(line)
+        list.append(line)
 
-previous_figure = float(empty_list[0][1])
-days = empty_list
-for value in empty_list:
+previous_figure = float(list[0][1])
+days = list
+for value in list:
     if float(value[1]) >= float(previous_figure):
         previous_figure = float(value[1])
     else:
@@ -36,8 +35,8 @@ for value in empty_list:
             return USD * exchange_rate
         SGD = (convUSD_SGD(USD = diff))
         day=value[0]
-        prev_figure = float(value[1])
+        previous_figure = float(value[1])
         cash_on_hand = (day,SGD)
         flag_list.append(cash_on_hand)
-        prev_figure = float(value[1])
+        previous_figure = float(value[1])
 print(flag_list)
