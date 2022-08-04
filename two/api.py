@@ -1,5 +1,6 @@
+from pathlib import Path
 import pip._vendor.requests as requests, json
-def currency_exchange_rate(from_currency,to_currency):
+def currency_exchange_rate():
     api_key = "BC94UTRLKLJQB8ZA"
     from_currency = "USD"
     to_currency = "SGD"
@@ -12,7 +13,7 @@ def currency_exchange_rate(from_currency,to_currency):
     return data["Realtime Currency Exchange Rate"] ["5. Exchange Rate"]
    
     
-print (currency_exchange_rate("USD", "SGD"))
+
     #data = response.json()
     #print (data.keys())
     #print(json.dumps(data["Realtime Currency Exchange Rate"], indent=4))

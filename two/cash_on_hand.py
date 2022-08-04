@@ -1,42 +1,24 @@
 from pathlib import Path
 import csv
-import requests
-key_api = 'BC94UTRLKLJQB8ZA'
-url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=SGD&apikey={base_url}'
+def coh_function(x):
+    file_path=Path.cwd()/"csv reports"/"cash-on-hand-usd.csv"
+    with file_path.open(mode = "r",encoding = "UTF-8", newline="") as file:
+        Readers = csv.reader(file)
+        next(Readers)
+        list=[]
+        for line in Readers:
+            list.append(line)
 
-responses = requests.get(url)
-
-import json
-data=responses.json()
-print(json.dumps(data,indent=4))
-
-data_1=data["Realtime Currency Exchange Rate"]
-exchange_rate=(float(data_1['5. Exchange Rate']))
-file_path=Path.cwd()/"csv reports"/"cash-on-hand-usd.csv"
-with file_path.open(mode = "r",encoding = "UTF-8", newline="") as file:
-    Readers = csv.reader(file)
-    next(Readers)
-    list=[]
-    flag_list=[]
-    for line in Readers:
-        list.append(line)
-
-previous_figure = float(list[0][1])
-days = list
-for value in list:
-    if float(value[1]) >= float(previous_figure):
-        previous_figure = float(value[1])
-    else:
-        diff = float(previous_figure) - float(value[1])
-        def convUSD_SGD(USD):
-            """
-        Fuction converts USD to SGD by multiplying exchange rate, this will return the coverted value
-            """
-            return USD * exchange_rate
-        SGD = (convUSD_SGD(USD = diff))
-        day=value[0]
-        previous_figure = float(value[1])
-        cash_on_hand = (day,SGD)
-        flag_list.append(cash_on_hand)
-        previous_figure = float(value[1])
-print(flag_list)
+        for i in range(0, len(list)-1):
+        # -1 since there is no 6th index value
+            if int(list[i+1][1]) < int(list[i][1]):
+                # integer value of next line, coh value < integer value of current line, coh value
+                deficit = int(list[i][1]) - int(list[i+1][1])
+                # coh value of current line - coh value of next line
+                day = list[i+1][0]
+                # day of next line
+                print(f"[CASH DEFICIT] DAY: {day}, AMOUNT: SGD{deficit*x}")    
+        else:
+            print('[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')
+    
+            
