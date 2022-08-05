@@ -6,17 +6,17 @@ def pl_function(x):
     with file_path.open(mode="r", encoding="UTF-8", newline="") as file:
         Readers = csv.reader(file)
         next(Readers)
-        list = []
+        empty_list = []
         for line in Readers:
-            list.append(line)
+            empty_list.append(line)
             
-        for i in range(0, len(list)-1):
+        for i in range(0, len(empty_list)-1):
             # -1 since there is no 6th index value
-            if int(list[i+1][4]) < int(list[i][4]):
+            if int(empty_list[i+1][4]) < int(empty_list[i][4]):
                 # integer value of next line, netprofit value < integer value of current line, netprofit value
-                deficit = int(list[i][4]) - int(list[i+1][4])
+                deficit = int(empty_list[i][4]) - int(empty_list[i+1][4])
                 # netprofit value of current line - netprofit value of next line
-                day = list[i+1][0]
+                day = empty_list[i+1][0]
                 # day of next line
                 print("[PROFIT DEFICIT] DAY: {day}, AMOUNT: SGD'{deficit*x}")
         else:
