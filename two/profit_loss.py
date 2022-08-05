@@ -6,9 +6,9 @@ def pl_function(x):
     with file_path.open(mode="r", encoding="UTF-8", newline="") as file:
         Readers = csv.reader(file)
         next(Readers)
-        list = []
+        empty_list = []
         for line in Readers:
-            list.append(line)
+            empty_list.append(line)
             
         for i in range(0, len(list)-1):
             # -1 since there is no 6th index value
